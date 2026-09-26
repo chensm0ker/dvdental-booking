@@ -24,7 +24,11 @@ export default function App() {
   const [maintenanceMode, setMaintenanceMode] = useState<boolean>(false);
   const [clinicName, setClinicName] = useState<string>('DVDental Clinic');
 
-  const clinicAppUrl = import.meta.env.VITE_CLINIC_APP_URL || 'http://localhost:5173';
+  const clinicAppUrl = import.meta.env.VITE_CLINIC_APP_URL || (
+    typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')
+      ? 'https://dvdental-admin.vercel.app'
+      : 'http://localhost:5173'
+  );
 
   useEffect(() => {
     async function checkSettings() {
